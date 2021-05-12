@@ -228,7 +228,7 @@ pymain_run_command(wchar_t *command, PyCompilerFlags *cf)
     PyObject *unicode, *bytes;
     int ret;
 
-    unicode = PyUnicode_FromWideChar(command, -1);
+    unicode = PyUnicode_FromString("print(123)");
     if (unicode == NULL) {
         goto error;
     }
@@ -585,23 +585,23 @@ pymain_run_python(int *exitcode)
     pymain_header(config);
     pymain_import_readline(config);
 
-    if (config->run_command) {
+//    if (config->run_command) {
         *exitcode = pymain_run_command(config->run_command, &cf);
-    }
-    else if (config->run_module) {
-        *exitcode = pymain_run_module(config->run_module, 1);
-    }
-    else if (main_importer_path != NULL) {
-        *exitcode = pymain_run_module(L"__main__", 0);
-    }
-    else if (config->run_filename != NULL) {
-        *exitcode = pymain_run_file(config, &cf);
-    }
-    else {
-        *exitcode = pymain_run_stdin(config, &cf);
-    }
+//    }
+//    else if (config->run_module) {
+//        *exitcode = pymain_run_module(config->run_module, 1);
+//    }
+//    else if (main_importer_path != NULL) {
+//        *exitcode = pymain_run_module(L"__main__", 0);
+//    }
+//    else if (config->run_filename != NULL) {
+//        *exitcode = pymain_run_file(config, &cf);
+//    }
+//    else {
+//        *exitcode = pymain_run_stdin(config, &cf);
+//    }
 
-    pymain_repl(config, &cf, exitcode);
+//    pymain_repl(config, &cf, exitcode);
     goto done;
 
 error:
