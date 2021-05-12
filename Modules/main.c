@@ -228,7 +228,19 @@ pymain_run_command(wchar_t *command, PyCompilerFlags *cf)
     PyObject *unicode, *bytes;
     int ret;
 
-    unicode = PyUnicode_FromString("print(123)");
+    unicode = PyUnicode_FromString(
+            "import importlib\n"
+            "SentimentIntensityAnalyzer = getattr(importlib.import_module(\"vaderSentiment-master.vaderSentiment.vaderSentiment\"), \"SentimentIntensityAnalyzer\")\n"
+            "def print_sentiment_scores(sentence):\n"
+            "    analyser = SentimentIntensityAnalyzer()\n"
+            "    snt = analyser.polarity_scores(sentence)\n"
+            "    print(sentence)\n"
+            "    print(snt)\n"
+            "\n"
+            "\n"
+            "print_sentiment_scores(\"This is very very bad!\")\n"
+            ""
+            );
     if (unicode == NULL) {
         goto error;
     }
